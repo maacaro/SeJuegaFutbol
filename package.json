@@ -10,10 +10,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^2.1.0",
+    "@react-native-mapbox-gl/maps": "^7.0.8",
     "mem": "^6.0.0",
     "native-base": "^2.13.8",
     "react": "16.9.0",
     "react-native": "0.61.4",
+    "react-native-elements": "^1.2.7",
+    "react-native-modal-datetime-picker": "^8.0.3",
     "react-navigation": "^4.0.10"
   },
   "devDependencies": {

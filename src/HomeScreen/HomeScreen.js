@@ -24,7 +24,7 @@ export default class HomeScreen extends Component {
         <Header noLeft>
           <Left />
           <Body>
-            <Title>seJuegaFutbol</Title>
+            <Title>Se Juega Futbol</Title>
             <Subtitle>All Matches</Subtitle>
           </Body>
           <Right />
