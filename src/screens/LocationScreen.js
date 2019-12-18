@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Map extends Component {
+export default class Location extends Component {
   componentDidMount() {
     MapboxGL.setTelemetryEnabled(false);
   }
@@ -44,7 +44,6 @@ export default class Map extends Component {
   render() {
     return (
       <Container>
-        <Header />
         <Content padder>
           <Form>
             <Item>

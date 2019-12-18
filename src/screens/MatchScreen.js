@@ -2,12 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import {
   Container,
-  Header,
-  Title,
-  Subtitle,
   Content,
-  Left,
-  Right,
   Body,
   Icon,
   Text,
@@ -17,14 +12,14 @@ import {
 } from 'native-base';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-const MatchForm = () => {
+const MatchForm = props => {
+  const {navigate} = props.navigation;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [matchDate, setDate] = useState('mm/dd/yyyy');
   const [matchTime, setTime] = useState('hh/mm AM');
 
   const showDatePicker = () => {
-    console.log('show');
     setDatePickerVisibility(true);
   };
 
@@ -73,18 +68,6 @@ const MatchForm = () => {
   };
   return (
     <Container>
-      <Header>
-        <Left>
-          <Button transparent>
-            <Icon name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>seJuegaFutbol</Title>
-          <Subtitle>All Matches</Subtitle>
-        </Body>
-        <Right />
-      </Header>
       <Content>
         <TextInput
           style={styles.matchTitleInput}
@@ -110,7 +93,7 @@ const MatchForm = () => {
               <Text style={styles.inputContent}>{matchTime}</Text>
             </Body>
           </ListItem>
-          <ListItem onPress={showDatePicker}>
+          <ListItem onPress={() => navigate('Location')}>
             <Body>
               <View style={styles.fixToText}>
                 <Icon style={styles.icon} ios="ios-pin" android="md-pin" />
@@ -151,6 +134,9 @@ const MatchForm = () => {
       </Content>
     </Container>
   );
+};
+MatchForm.navigationOptions = {
+  title: 'se juega futbol',
 };
 
 export default MatchForm;

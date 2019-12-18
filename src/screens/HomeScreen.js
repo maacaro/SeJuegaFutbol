@@ -2,12 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {
   Container,
-  Header,
-  Title,
-  Subtitle,
   Content,
-  Left,
-  Right,
   Body,
   Icon,
   Text,
@@ -17,18 +12,37 @@ import {
 } from 'native-base';
 
 export default class HomeScreen extends Component {
+  static navigationOptions = {
+    title: 'se juega futbol',
+  };
   render() {
-    const {matches} = this.props;
+    const {navigate} = this.props.navigation;
+    const matches = [
+      {
+        id: 1,
+        title: 'Juego Amistoso',
+        attending: [{Name: 'Manuel'}, {Name: 'Juan'}],
+        address: 'Jaula Aurinegra,San Cristobal',
+        date: '16 Nov, 2019',
+        time: '10:00AM-12:00AM',
+      },
+      {
+        id: 2,
+        title: 'UCAT vs Frenos la Russa',
+        attending: [
+          {Name: 'Manuel'},
+          {Name: 'Juan'},
+          {Name: 'luis'},
+          {Name: 'rafa'},
+        ],
+        address: 'UCAT sabana larga,San Cristobal',
+        date: '24 Nov, 2019',
+        time: '10:00AM-12:00AM',
+      },
+    ];
+
     return (
       <Container>
-        <Header noLeft>
-          <Left />
-          <Body>
-            <Title>Se Juega Futbol</Title>
-            <Subtitle>All Matches</Subtitle>
-          </Body>
-          <Right />
-        </Header>
         <Content padder>
           {matches.map(({id, title, attending, address, date, time}) => (
             <Card key={id}>
@@ -73,7 +87,9 @@ export default class HomeScreen extends Component {
             </Card>
           ))}
         </Content>
-        <TouchableOpacity style={styles.floatingAddButton}>
+        <TouchableOpacity
+          onPress={() => navigate('Match')}
+          style={styles.floatingAddButton}>
           <Text style={styles.fabText}>+</Text>
         </TouchableOpacity>
       </Container>
