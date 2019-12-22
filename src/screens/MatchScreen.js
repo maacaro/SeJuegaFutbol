@@ -66,6 +66,7 @@ const MatchForm = props => {
     hideTimePicker();
     setTime(time);
   };
+  const showAvaiblePlayers = () => navigate('AvaiblePalyers');
   return (
     <Container>
       <Content>
@@ -102,7 +103,7 @@ const MatchForm = props => {
               <Text style={styles.inputContent}>{matchDate.toString()}</Text>
             </Body>
           </ListItem>
-          <ListItem onPress={showDatePicker}>
+          <ListItem onPress={showAvaiblePlayers}>
             <Body>
               <View style={styles.fixToText}>
                 <Icon
