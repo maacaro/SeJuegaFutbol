@@ -66,6 +66,7 @@ const MatchForm = props => {
     hideTimePicker();
     setTime(time);
   };
+  const showAvaiblePlayers = () => navigate('AvaiblePalyers');
   return (
     <Container>
       <Content>
@@ -102,7 +103,7 @@ const MatchForm = props => {
               <Text style={styles.inputContent}>{matchDate.toString()}</Text>
             </Body>
           </ListItem>
-          <ListItem onPress={showDatePicker}>
+          <ListItem onPress={showAvaiblePlayers}>
             <Body>
               <View style={styles.fixToText}>
                 <Icon
@@ -116,9 +117,7 @@ const MatchForm = props => {
             </Body>
           </ListItem>
         </List>
-        <Button block primary>
-          <Text> Create Match </Text>
-        </Button>
+
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
           mode="date"
@@ -132,6 +131,9 @@ const MatchForm = props => {
           onCancel={hideTimePicker}
         />
       </Content>
+      <Button block primary>
+        <Text> Create Match </Text>
+      </Button>
     </Container>
   );
 };

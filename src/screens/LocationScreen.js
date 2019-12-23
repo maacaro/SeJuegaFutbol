@@ -1,19 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
-import {
-  Container,
-  Header,
-  Content,
-  Button,
-  Text,
-  Input,
-  Form,
-  Item,
-} from 'native-base';
+import {Container, Content, Button, Text, Input, Form, Item} from 'native-base';
 import {ListItem} from 'react-native-elements';
 
-const DEFAULT_CENTER_COORDINATE = [7.7866108, -72.213858];
+const DEFAULT_CENTER_COORDINATE = [-72.213858, 7.7866108];
 
 MapboxGL.setAccessToken(
   'pk.eyJ1IjoibWFhY2FybyIsImEiOiJjazN3em1reDIwZXAzM21tajQzeTh5Nmk3In0.2Br_dCgco9OLWrgtI9imNQ',
@@ -57,7 +48,7 @@ export default class Location extends Component {
             <MapboxGL.MapView style={styles.map}>
               <MapboxGL.Camera
                 defaultSettings={{
-                  centerCoordinate: [-72.213858, 7.7866108],
+                  centerCoordinate: DEFAULT_CENTER_COORDINATE,
                   zoomLevel: 16,
                 }}
               />
@@ -73,11 +64,10 @@ export default class Location extends Component {
             subtitle={'ferrero tamayo'}
           />
         </Content>
+        <Button full>
+          <Text>Done</Text>
+        </Button>
       </Container>
     );
   }
 }
-
-// const Map = ()=>{
-
-// }
