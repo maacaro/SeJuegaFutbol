@@ -64,11 +64,10 @@ export default class Location extends Component {
             subtitle={'ferrero tamayo'}
           />
         </Content>
+        <Button full>
+          <Text>Done</Text>
+        </Button>
       </Container>
     );
   }
 }
-
-// const Map = ()=>{
-
-// }

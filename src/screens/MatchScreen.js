@@ -117,9 +117,7 @@ const MatchForm = props => {
             </Body>
           </ListItem>
         </List>
-        <Button block primary>
-          <Text> Create Match </Text>
-        </Button>
+
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
           mode="date"
@@ -133,6 +131,9 @@ const MatchForm = props => {
           onCancel={hideTimePicker}
         />
       </Content>
+      <Button block primary>
+        <Text> Create Match </Text>
+      </Button>
     </Container>
   );
 };

@@ -3,11 +3,11 @@ import {
   StyleSheet,
   View,
   FlatList,
-  Text,
   TouchableOpacity,
   Image,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
+import {Button, Text} from 'native-base';
 import {toggleItemFrom} from '../helpers/index';
 
 const avaiblePlayersData = [
@@ -41,35 +41,40 @@ const FlatListItemSeparator = () => <View style={styles.line} />;
 
 const AvaiblePlayers = () => {
   const [playerList, setPlayerList] = useState([]);
+  const [numberOfSelectedItems, setNumberOfSelectedItems] = useState(0);
 
   useEffect(() => {
     setPlayerList(avaiblePlayersData);
   }, []);
-  const numberOfSelectedItems = playerList.filter(
-    item => item.isSelected === true,
-  ).length;
+
   const toggleSelection = toggleItemFrom(playerList);
+
+  const handleItemOnPress = (index, isSelected) => {
+    setPlayerList(toggleSelection(index));
+    if (isSelected === true) {
+      setNumberOfSelectedItems(numberOfSelectedItems - 1);
+    } else {
+      setNumberOfSelectedItems(numberOfSelectedItems + 1);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Avaible Players</Text>
+      <Text style={styles.title}>Select Players</Text>
       <FlatList
         data={playerList}
         ItemSeparatorComponent={FlatListItemSeparator}
-        renderItem={({item, index}) => (
+        renderItem={({item: {isSelected, thumbnailUrl, name}, index}) => (
           <TouchableOpacity
             style={
-              (item.isSelected === false && styles.list) || [
+              (isSelected === false && styles.list) || [
                 styles.list,
                 styles.selected,
               ]
             }
-            onPress={() => setPlayerList(toggleSelection(index))}>
-            <Image
-              source={{uri: item.thumbnailUrl}}
-              style={{width: 40, height: 40, margin: 6}}
-            />
-            <Text style={styles.lightText}>{item.name}</Text>
+            onPress={() => handleItemOnPress(index, isSelected)}>
+            <Image source={{uri: thumbnailUrl}} style={styles.thumbnailImage} />
+            <Text style={styles.lightText}>{name}</Text>
           </TouchableOpacity>
         )}
       />
@@ -83,11 +88,14 @@ const AvaiblePlayers = () => {
             raised
             type="MaterialIcons"
             name="people"
-            color="#e3e3e3"
+            color="#686cc3"
             size={30}
           />
         </View>
       </TouchableOpacity>
+      <Button full>
+        <Text>Done</Text>
+      </Button>
     </View>
   );
 };
@@ -97,7 +105,7 @@ export default AvaiblePlayers;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 50,
+    paddingTop: 10,
     position: 'relative',
   },
   title: {
@@ -131,14 +139,14 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 50,
     width: '100%',
     left: 290,
     zIndex: 1,
   },
   numberBox: {
     position: 'absolute',
-    bottom: 75,
+    bottom: 105,
     width: 30,
     height: 30,
     borderRadius: 15,
@@ -150,4 +158,5 @@ const styles = StyleSheet.create({
   },
   number: {fontSize: 14, color: '#000'},
   selected: {backgroundColor: '#FA7B5F'},
+  thumbnailImage: {width: 40, height: 40, margin: 6},
 });
