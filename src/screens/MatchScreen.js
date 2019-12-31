@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, View, Modal} from 'react-native';
 import {
   Container,
   Content,
@@ -11,11 +11,20 @@ import {
   ListItem,
 } from 'native-base';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import Location from './LocationScreen';
+import AvaiblePlayers from './AvaiblePlayersScreen';
 
 const MatchForm = props => {
-  const {navigate} = props.navigation;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+
+  const [location, setLocation] = useState('');
+
+  const [selectedPlayers, setSelectedPlayers] = useState({});
+
+  const [isLocationModalVisible, setLocationModalVisible] = useState(false);
+  const [isPlayersModalVisible, setPlayersModalVisible] = useState(false);
+
   const [matchDate, setDate] = useState('mm/dd/yyyy');
   const [matchTime, setTime] = useState('hh/mm AM');
 
@@ -56,6 +65,7 @@ const MatchForm = props => {
     hideDatePicker();
     setDate(formtedDate);
   };
+
   const handleTimeConfirm = date => {
     const minutes = date.getMinutes();
     const time =
@@ -66,9 +76,22 @@ const MatchForm = props => {
     hideTimePicker();
     setTime(time);
   };
-  const showAvaiblePlayers = () => navigate('AvaiblePalyers');
+
   return (
     <Container>
+      <Modal visible={isLocationModalVisible}>
+        <Location
+          onSelect={setLocation}
+          onClose={() => setLocationModalVisible(false)}
+        />
+      </Modal>
+      <Modal visible={isPlayersModalVisible}>
+        <AvaiblePlayers
+          onSelect={setSelectedPlayers}
+          onClose={() => setPlayersModalVisible(false)}
+          selectedPlayers={selectedPlayers}
+        />
+      </Modal>
       <Content>
         <TextInput
           style={styles.matchTitleInput}
@@ -94,16 +117,16 @@ const MatchForm = props => {
               <Text style={styles.inputContent}>{matchTime}</Text>
             </Body>
           </ListItem>
-          <ListItem onPress={() => navigate('Location')}>
+          <ListItem onPress={() => setLocationModalVisible(true)}>
             <Body>
               <View style={styles.fixToText}>
                 <Icon style={styles.icon} ios="ios-pin" android="md-pin" />
                 <Text style={styles.label}>Add a Location</Text>
               </View>
-              <Text style={styles.inputContent}>{matchDate.toString()}</Text>
+              <Text style={styles.inputContent}>{location.toString()}</Text>
             </Body>
           </ListItem>
-          <ListItem onPress={showAvaiblePlayers}>
+          <ListItem onPress={() => setPlayersModalVisible(true)}>
             <Body>
               <View style={styles.fixToText}>
                 <Icon
@@ -113,7 +136,9 @@ const MatchForm = props => {
                 />
                 <Text style={styles.label}>Add Players</Text>
               </View>
-              <Text style={styles.inputContent}>{matchDate.toString()}</Text>
+              <Text style={styles.inputContent}>
+                {Object.keys(selectedPlayers).length}
+              </Text>
             </Body>
           </ListItem>
         </List>

@@ -39,13 +39,20 @@ const avaiblePlayersData = [
 
 const FlatListItemSeparator = () => <View style={styles.line} />;
 
-const AvaiblePlayers = () => {
+const AvaiblePlayers = props => {
+  const {selectedPlayers} = props;
   const [playerList, setPlayerList] = useState([]);
   const [numberOfSelectedItems, setNumberOfSelectedItems] = useState(0);
 
   useEffect(() => {
-    setPlayerList(avaiblePlayersData);
-  }, []);
+    const playerListWithSelected = avaiblePlayersData.map(avaiblePlayer => {
+      if (selectedPlayers[avaiblePlayer.id] !== undefined) {
+        return selectedPlayers[avaiblePlayer.id];
+      }
+      return avaiblePlayer;
+    });
+    setPlayerList(playerListWithSelected);
+  }, [selectedPlayers]);
 
   const toggleSelection = toggleItemFrom(playerList);
 
@@ -57,6 +64,7 @@ const AvaiblePlayers = () => {
       setNumberOfSelectedItems(numberOfSelectedItems + 1);
     }
   };
+  const {onSelect, onClose} = props;
 
   return (
     <View style={styles.container}>
@@ -93,7 +101,22 @@ const AvaiblePlayers = () => {
           />
         </View>
       </TouchableOpacity>
-      <Button full>
+      <Button
+        full
+        onPress={() => {
+          onSelect(
+            playerList
+              .filter(player => player.isSelected === true)
+              .reduce(
+                (acum, currentPlayer) => ({
+                  ...acum,
+                  [currentPlayer.id]: {...currentPlayer},
+                }),
+                {},
+              ),
+          );
+          onClose();
+        }}>
         <Text>Done</Text>
       </Button>
     </View>
