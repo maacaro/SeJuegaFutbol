@@ -40,7 +40,7 @@ const avaiblePlayersData = [
 const FlatListItemSeparator = () => <View style={styles.line} />;
 
 const AvaiblePlayers = props => {
-  const {selectedPlayers} = props;
+  const {selectedPlayers, onSelect, onClose} = props;
   const [playerList, setPlayerList] = useState([]);
   const [numberOfSelectedItems, setNumberOfSelectedItems] = useState(0);
 
@@ -64,7 +64,6 @@ const AvaiblePlayers = props => {
       setNumberOfSelectedItems(numberOfSelectedItems + 1);
     }
   };
-  const {onSelect, onClose} = props;
 
   return (
     <View style={styles.container}>
@@ -104,17 +103,6 @@ const AvaiblePlayers = props => {
       <Button
         full
         onPress={() => {
-          onSelect(
-            playerList
-              .filter(player => player.isSelected === true)
-              .reduce(
-                (acum, currentPlayer) => ({
-                  ...acum,
-                  [currentPlayer.id]: {...currentPlayer},
-                }),
-                {},
-              ),
-          );
           onClose();
         }}>
         <Text>Done</Text>

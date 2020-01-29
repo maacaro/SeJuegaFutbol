@@ -33,7 +33,7 @@ export default class Location extends Component {
   }
 
   render() {
-    const {onSelect, onClose} = this.props;
+    const {onSelect} = this.props;
     onSelect('San Cristobal');
     return (
       <Container>
@@ -66,9 +66,6 @@ export default class Location extends Component {
             subtitle={'ferrero tamayo'}
           />
         </Content>
-        <Button full onPress={() => onClose()}>
-          <Text>Done</Text>
-        </Button>
       </Container>
     );
   }
