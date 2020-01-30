@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {
-  StyleSheet,
   TextInput,
   View,
   Modal,
@@ -18,6 +17,7 @@ import {
   List,
   ListItem,
 } from 'native-base';
+import {styles} from './match.styles';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Location from './LocationScreen';
 
@@ -48,15 +48,34 @@ const listOfPlayers = [
   },
 ];
 
+const listOfLocations = [
+  {title: 'UCAT', address: 'Sabana Larga', isSelected: false},
+  {title: 'El Dorado', address: 'La Popita', isSelected: false},
+];
+// todo move to another file
+var monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 const MatchForm = props => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
-  const [location, setLocation] = useState('');
+  const [locations, setLocations] = useState([]);
+  const [selectedLocation, selectLocation] = useState(null);
 
-  const [players, setPlayers] = useState({});
-
-  const [numberOfSelectedItems, setNumberOfSelectedItems] = useState(0);
+  const [players, setPlayers] = useState([]);
 
   const [isLocationModalVisible, setLocationModalVisible] = useState(false);
   const [isPlayersModalVisible, setPlayersModalVisible] = useState(false);
@@ -83,20 +102,7 @@ const MatchForm = props => {
     const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
-    var monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
+
     const formtedDate = `${monthNames[month]} ${day} - ${year}`;
     hideDatePicker();
     setDate(formtedDate);
@@ -119,8 +125,13 @@ const MatchForm = props => {
     setPlayers(nextPlayers);
   };
 
+  const handleLocationOnPress = index => {
+    selectLocation(index);
+  };
+
   useEffect(() => {
     setPlayers(listOfPlayers);
+    setLocations(listOfLocations);
   }, []);
 
   return (
@@ -156,7 +167,11 @@ const MatchForm = props => {
                 <Icon style={styles.icon} ios="ios-pin" android="md-pin" />
                 <Text style={styles.label}>Add a Location</Text>
               </View>
-              <Text style={styles.inputContent}>{location.toString()}</Text>
+              <Text style={styles.inputContent}>
+                {(locations[selectedLocation] &&
+                  locations[selectedLocation].title) ||
+                  ''}
+              </Text>
             </Body>
           </ListItem>
           <ListItem onPress={() => setPlayersModalVisible(true)}>
@@ -169,7 +184,9 @@ const MatchForm = props => {
                 />
                 <Text style={styles.label}>Add Players</Text>
               </View>
-              <Text style={styles.inputContent}>{8}</Text>
+              <Text style={styles.inputContent}>
+                {players.filter(player => player.isSelected).length}
+              </Text>
             </Body>
           </ListItem>
         </List>
@@ -190,7 +207,11 @@ const MatchForm = props => {
           <TouchableOpacity onPress={() => setLocationModalVisible(false)}>
             <Text> close </Text>
           </TouchableOpacity>
-          <Location onSelect={setLocation} />
+          <Location
+            onLocationOnPress={handleLocationOnPress}
+            selected={selectedLocation}
+            locations={locations}
+          />
           <Button full onPress={() => setLocationModalVisible(false)}>
             <Text>Done</Text>
           </Button>
@@ -229,6 +250,9 @@ export default MatchForm;
 const FlatListItemSeparator = () => <View style={styles.line} />;
 
 const Players = ({data, onPlayerPress}) => {
+  const numberOfSelectedPlayers = data.filter(
+    player => player.isSelected === true,
+  ).length;
   return (
     <>
       <Text style={styles.title}>Select Players</Text>
@@ -252,7 +276,7 @@ const Players = ({data, onPlayerPress}) => {
         )}
       />
       <View style={styles.numberBox}>
-        <Text style={styles.number}>{'numberOfSelectedItems'}</Text>
+        <Text style={styles.number}>{numberOfSelectedPlayers}</Text>
       </View>
       <TouchableOpacity style={styles.iconFloating}>
         <View>
@@ -268,102 +292,3 @@ const Players = ({data, onPlayerPress}) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  row: {
-    borderBottomColor: 'grey',
-    borderBottomWidth: 0.5,
-    paddingLeft: 20,
-    paddingTop: 5,
-    paddingBottom: 10,
-  },
-  fixToText: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  input: {
-    height: 40,
-    width: 150,
-    borderColor: 'gray',
-    borderWidth: 1,
-  },
-  icon: {
-    color: 'black',
-  },
-  matchTitleInput: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    margin: 15,
-  },
-  matchTitle: {
-    textAlign: 'center',
-    paddingTop: 14,
-    paddingBottom: 18,
-  },
-  label: {
-    color: 'blue',
-    letterSpacing: 0.5,
-  },
-  inputContent: {
-    marginLeft: 0,
-    color: '#666664',
-  },
-  container: {
-    flex: 1,
-    paddingTop: 10,
-    position: 'relative',
-  },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-  loader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  list: {
-    paddingVertical: 5,
-    margin: 3,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    zIndex: -1,
-  },
-  lightText: {
-    width: 200,
-    paddingLeft: 15,
-    fontSize: 18,
-  },
-  line: {
-    height: 0.5,
-    width: '100%',
-    backgroundColor: 'rgba(255,255,255,0.5)',
-  },
-  iconFloating: {
-    position: 'absolute',
-    bottom: 50,
-    width: '100%',
-    left: 290,
-    zIndex: 1,
-  },
-  numberBox: {
-    position: 'absolute',
-    bottom: 105,
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    left: 330,
-    zIndex: 3,
-    backgroundColor: '#e3e3e3',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  number: {fontSize: 14, color: '#000'},
-  selected: {backgroundColor: '#FA7B5F'},
-  thumbnailImage: {width: 40, height: 40, margin: 6},
-});
