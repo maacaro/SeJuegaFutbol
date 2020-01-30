@@ -121,7 +121,10 @@ const MatchForm = props => {
 
   const handlePlayerOnPress = index => {
     let nextPlayers = [...players];
-    nextPlayers[index].isSelected = !nextPlayers[index].isSelected;
+    nextPlayers[index] = {
+      ...nextPlayers[index],
+      isSelected: !nextPlayers[index].isSelected,
+    };
     setPlayers(nextPlayers);
   };
 
@@ -221,7 +224,7 @@ const MatchForm = props => {
             <Text> close </Text>
           </TouchableOpacity>
           <Players
-            data={listOfPlayers}
+            data={players}
             onPlayerPress={index => {
               handlePlayerOnPress(index);
             }}
