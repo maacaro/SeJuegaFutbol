@@ -7,15 +7,11 @@
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Home from './src/screens/Home/index';
-import MatchScreen from './src/screens/MatchScreen';
-import LocationScreen from './src/screens/LocationScreen';
-import AvaiblePlayers from './src/screens/AvaiblePlayersScreen';
+import CreateMatch from './src/screens/CreateMatch/index';
 
 const MainNavigator = createStackNavigator({
   Home: {screen: Home},
-  Match: {screen: MatchScreen},
-  Location: {screen: LocationScreen},
-  AvaiblePlayers: {screen: AvaiblePlayers},
+  Match: {screen: CreateMatch},
 });
 
 const App = createAppContainer(MainNavigator);

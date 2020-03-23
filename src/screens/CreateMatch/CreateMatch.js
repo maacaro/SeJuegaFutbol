@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   TextInput,
   View,
@@ -19,63 +19,14 @@ import {
 } from 'native-base';
 import {styles} from './match.styles';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import Location from './LocationScreen';
+import Location from './Locations/index';
+import ListOfPlayers from './ListOfPlayers/index';
 
-const listOfPlayers = [
-  {
-    isSelected: false,
-    id: 1,
-    name: 'Manuel Castro',
-    thumbnailUrl: 'https://via.placeholder.com/50',
-  },
-  {
-    isSelected: false,
-    id: 2,
-    name: 'Hebreth Strube',
-    thumbnailUrl: 'https://via.placeholder.com/50',
-  },
-  {
-    isSelected: false,
-    id: 3,
-    name: 'Javier Malpica',
-    thumbnailUrl: 'https://via.placeholder.com/50useEffect',
-  },
-  {
-    isSelected: false,
-    id: 4,
-    name: 'Luis Zambrano',
-    thumbnailUrl: 'https://via.placeholder.com/50',
-  },
-];
-
-const listOfLocations = [
-  {title: 'UCAT', address: 'Sabana Larga', isSelected: false},
-  {title: 'El Dorado', address: 'La Popita', isSelected: false},
-];
-// todo move to another file
-var monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
-const MatchForm = props => {
+const MatchForm = ({locations, monthNames, players, handlePlayerOnPress}) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
-  const [locations, setLocations] = useState([]);
   const [selectedLocation, selectLocation] = useState(null);
-
-  const [players, setPlayers] = useState([]);
 
   const [isLocationModalVisible, setLocationModalVisible] = useState(false);
   const [isPlayersModalVisible, setPlayersModalVisible] = useState(false);
@@ -119,30 +70,16 @@ const MatchForm = props => {
     setTime(time);
   };
 
-  const handlePlayerOnPress = index => {
-    let nextPlayers = [...players];
-    nextPlayers[index] = {
-      ...nextPlayers[index],
-      isSelected: !nextPlayers[index].isSelected,
-    };
-    setPlayers(nextPlayers);
-  };
-
   const handleLocationOnPress = index => {
     selectLocation(index);
   };
-
-  useEffect(() => {
-    setPlayers(listOfPlayers);
-    setLocations(listOfLocations);
-  }, []);
 
   return (
     <Container>
       <Content>
         <TextInput
           style={styles.matchTitleInput}
-          placeholder="Match Title"
+          placeholder="Match Title v4"
           maxLength={50}
         />
         <List>
@@ -159,7 +96,7 @@ const MatchForm = props => {
             <Body>
               <View style={styles.fixToText}>
                 <Icon style={styles.icon} type="FontAwesome" name="clock-o" />
-                <Text style={styles.label}>Select a Time</Text>
+                <Text style={styles.label}>Select a Time 4</Text>
               </View>
               <Text style={styles.inputContent}>{matchTime}</Text>
             </Body>
@@ -223,7 +160,7 @@ const MatchForm = props => {
           <TouchableOpacity onPress={() => setPlayersModalVisible(false)}>
             <Text> close </Text>
           </TouchableOpacity>
-          <Players
+          <ListOfPlayers
             data={players}
             onPlayerPress={index => {
               handlePlayerOnPress(index);
