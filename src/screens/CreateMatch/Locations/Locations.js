@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: '#F5FCFF',
   },
+  title: {marginTop: 10, marginBottom: 20, fontWeight: 'bold'},
   container: {
     marginTop: 10,
     height: 350,
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
+  selected: {backgroundColor: '#FA7B5F'},
 });
 
 export default class Location extends Component {
@@ -33,6 +35,7 @@ export default class Location extends Component {
   }
 
   render() {
+    const {onLocationOnPress, locations, selected} = this.props;
     return (
       <Container>
         <Content padder>
@@ -54,19 +57,19 @@ export default class Location extends Component {
               />
             </MapboxGL.MapView>
           </View>
-          <Text style={{marginTop: 10, marginBottom: 20, fontWeight: 'bold'}}>
-            SOCCER FIELDS
-          </Text>
-          <ListItem topDivider title={'UCAT'} subtitle={'Sabana Larga'} />
-          <ListItem
-            topDivider
-            title={'El Dorado'}
-            subtitle={'ferrero tamayo'}
-          />
+          <Text style={styles.title}>SOCCER FIELDS</Text>
+          {locations.map((location, index) => (
+            <ListItem
+              topDivider
+              title={
+                (selected === index && `${location.title} selected`) ||
+                location.title
+              }
+              subtitle={location.address}
+              onPress={() => onLocationOnPress(index)}
+            />
+          ))}
         </Content>
-        <Button full>
-          <Text>Done</Text>
-        </Button>
       </Container>
     );
   }
