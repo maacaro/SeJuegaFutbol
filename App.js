@@ -13,18 +13,18 @@ const App = () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen
-        name={'ForgotPassword'}
-        options={{
-          headerShown: false,
-        }}>
-        {props => <ForgotPassword {...props} />}
-      </Stack.Screen>
-      <Stack.Screen
         name={'SignUp'}
         options={{
           headerShown: false,
         }}>
         {props => <SignUp {...props} />}
+      </Stack.Screen>
+      <Stack.Screen
+        name={'ForgotPassword'}
+        options={{
+          headerShown: false,
+        }}>
+        {props => <ForgotPassword {...props} />}
       </Stack.Screen>
       <Stack.Screen
         name={'Login'}

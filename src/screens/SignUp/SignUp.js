@@ -22,22 +22,6 @@ export default () => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
-          placeholder="Name.. "
-          placeholderTextColor="#003f5c"
-          onChangeText={() => {}}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="LastName.. "
-          placeholderTextColor="#003f5c"
-          onChangeText={() => {}}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
           placeholder="Password ... "
           placeholderTextColor="#003f5c"
           secureTextEntry
@@ -53,6 +37,23 @@ export default () => {
           onChangeText={() => {}}
         />
       </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Name.. "
+          placeholderTextColor="#003f5c"
+          onChangeText={() => {}}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="LastName.. "
+          placeholderTextColor="#003f5c"
+          onChangeText={() => {}}
+        />
+      </View>
+
       <TouchableOpacity>
         <Text style={styles.forgot}>Forgot Password?</Text>
       </TouchableOpacity>
