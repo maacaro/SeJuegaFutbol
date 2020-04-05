@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-export default () => {
+export default ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
@@ -30,13 +30,13 @@ export default () => {
           onChangeText={text => setPassword(text)}
         />
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
         <Text style={styles.forgot}>Forgot Password?</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.loginBtn}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
         <Text style={styles.loginText}>Signup</Text>
       </TouchableOpacity>
     </View>

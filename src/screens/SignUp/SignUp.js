@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default () => {
+export default ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>SeJuegaFutbol</Text>
@@ -54,13 +54,13 @@ export default () => {
         />
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
         <Text style={styles.forgot}>Forgot Password?</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.loginBtn}>
         <Text style={styles.signUpText}>Sing Up</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
     </View>
