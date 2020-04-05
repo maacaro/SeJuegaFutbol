@@ -1,4 +1,4 @@
-export {user};
+export default user;
 
 const userDefaultState = {
   isLoading: false,
