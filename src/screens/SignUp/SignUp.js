@@ -60,7 +60,7 @@ export default ({navigation}) => {
       <TouchableOpacity style={styles.loginBtn}>
         <Text style={styles.signUpText}>Sing Up</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity onPress={() => navigation.navigate('SingIn')}>
         <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
     </View>
