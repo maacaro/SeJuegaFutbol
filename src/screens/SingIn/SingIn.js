@@ -7,17 +7,35 @@ import {
   StyleSheet,
 } from 'react-native';
 
-export default ({navigation, isLoading, onSingIn}) => {
+export default React.memo(({navigation, isLoading, onSignIn, error}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleSingInOnPress = () => {
-    onSingIn();
+    onSignIn(password, email);
   };
+  console.log(error);
   return (
     <>
       {(isLoading && <Text>loading...</Text>) || (
         <View style={styles.container}>
           <Text style={styles.logo}>SeJuegaFutbol</Text>
+          {error !== null && error === 'WRONG_PASSWORD_EMAIL_COMBINATION' && (
+            <View>
+              <Text style={styles.errorText}>
+                Wrogn email and password combination
+              </Text>
+            </View>
+          )}
+          {error !== null && error === 'NOT_REGISTER' && (
+            <View style={styles.errorMessageContainer}>
+              <Text style={styles.errorText}>
+                {email} is not register, please
+              </Text>
+              <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                <Text style={styles.loginText}> Signup</Text>
+              </TouchableOpacity>
+            </View>
+          )}
           <View style={styles.inputView}>
             <TextInput
               style={styles.inputText}
@@ -51,7 +69,7 @@ export default ({navigation, isLoading, onSingIn}) => {
       )}
     </>
   );
-};
+});
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -94,5 +112,14 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: 'white',
+  },
+  errorText: {
+    color: '#fb5b5a',
+  },
+  errorMessageContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    marginBottom: 5,
   },
 });

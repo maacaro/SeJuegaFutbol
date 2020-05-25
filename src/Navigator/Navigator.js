@@ -9,11 +9,11 @@ import CreateMatch from '../screens/CreateMatch/index';
 
 const Stack = createStackNavigator();
 
-export default ({isSingIn, singIn}) => {
+export default ({isSignIn, singIn}) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {isSingIn === false && (
+        {isSignIn === false && (
           <>
             <Stack.Screen
               name={'SingIn'}

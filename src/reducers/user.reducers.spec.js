@@ -1,4 +1,4 @@
-import {user} from './user.reducers';
+import user from './user.reducers';
 
 describe('User Reducer', () => {
   it('set a new token at a at success restore of token', () => {
