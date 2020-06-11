@@ -1,8 +1,8 @@
 import React from 'react';
-import Login from './Login';
+import SingIn from './SingIn';
 import {render} from '@testing-library/react-native';
 
 it('render', () => {
-  const {baseElment} = render(<Login />);
+  const {baseElment} = render(<SingIn />);
   expect(baseElment).toMatchSnapshot();
 });

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default () => {
+export default ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>SeJuegaFutbol</Text>
@@ -15,22 +15,6 @@ export default () => {
         <TextInput
           style={styles.inputText}
           placeholder="Email.. "
-          placeholderTextColor="#003f5c"
-          onChangeText={() => {}}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Name.. "
-          placeholderTextColor="#003f5c"
-          onChangeText={() => {}}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="LastName.. "
           placeholderTextColor="#003f5c"
           onChangeText={() => {}}
         />
@@ -53,13 +37,30 @@ export default () => {
           onChangeText={() => {}}
         />
       </View>
-      <TouchableOpacity>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Name.. "
+          placeholderTextColor="#003f5c"
+          onChangeText={() => {}}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="LastName.. "
+          placeholderTextColor="#003f5c"
+          onChangeText={() => {}}
+        />
+      </View>
+
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
         <Text style={styles.forgot}>Forgot Password?</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.loginBtn}>
         <Text style={styles.signUpText}>Sing Up</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('SingIn')}>
         <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
     </View>

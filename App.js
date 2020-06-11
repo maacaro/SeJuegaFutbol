@@ -1,44 +1,33 @@
+if (__DEV__) {
+  import('./src/ReactotronConfig').then(() =>
+    console.log('Reactotron Configured'),
+  );
+}
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import SignUp from './src/screens/SignUp/SignUp';
-import Login from './src/screens/Login/Login';
-import ForgotPassword from './src/screens/ForgotPassword/ForgotPassword';
-import Home from './src/screens/Home/index';
-import CreateMatch from './src/screens/CreateMatch/index';
-
-const Stack = createStackNavigator();
-
-const App = () => (
-  <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen
-        name={'ForgotPassword'}
-        options={{
-          headerShown: false,
-        }}>
-        {props => <ForgotPassword {...props} />}
-      </Stack.Screen>
-      <Stack.Screen
-        name={'SignUp'}
-        options={{
-          headerShown: false,
-        }}>
-        {props => <SignUp {...props} />}
-      </Stack.Screen>
-      <Stack.Screen
-        name={'Login'}
-        options={{
-          headerShown: false,
-        }}>
-        {props => <Login {...props} />}
-      </Stack.Screen>
-      <Stack.Screen name={'Home'}>{props => <Home {...props} />}</Stack.Screen>
-      <Stack.Screen name={'Create Match'}>
-        {props => <CreateMatch {...props} />}
-      </Stack.Screen>
-    </Stack.Navigator>
-  </NavigationContainer>
-);
+import {createStore, combineReducers, compose} from 'redux';
+import {Provider} from 'react-redux';
+import user from './src/reducers/user.reducers';
+import Navigator from './src/navigator';
+import {reactotron} from './src/ReactotronConfig';
 
 export default App;
+
+const middlewares = [];
+// Initialising a middlewares array, later on you can add a
+// saga middleware for example
+if (__DEV__) {
+  // Check if it's development mode
+  const reactotronMiddleware = reactotron.createEnhancer();
+  // Creating Reactotron "data capturer"
+  middlewares.push(reactotronMiddleware);
+  // And pushing it to the middlewares array
+}
+const store = createStore(combineReducers({user}), compose(...middlewares)); // Creating a store with given configuration
+
+function App() {
+  return (
+    <Provider store={store}>
+      <Navigator />
+    </Provider>
+  );
+}
