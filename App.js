@@ -7,7 +7,7 @@ import * as React from 'react';
 import {createStore, combineReducers, compose} from 'redux';
 import {Provider} from 'react-redux';
 import user from './src/reducers/user.reducers';
-import Navigator from './src/Navigator';
+import Navigator from './src/navigator';
 import {reactotron} from './src/ReactotronConfig';
 
 export default App;

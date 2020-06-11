@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import CreateMatch from './CreateMatch';
+import Match from './Match';
 
 const listOfPlayers = [
   {
@@ -64,7 +64,7 @@ export default () => {
     setLocations(listOfLocations);
   }, []);
   return (
-    <CreateMatch
+    <Match
       locations={locations}
       monthNames={monthNames}
       players={players}
