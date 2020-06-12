@@ -1,7 +1,6 @@
 export default user;
 
 const userDefaultState = {
-  isLoading: false,
   isSignIn: false,
   userToken: null,
   playerId: null,
@@ -40,16 +39,6 @@ function user(prevState = userDefaultState, action = {}) {
         isSignIn: false,
         userToken: null,
         playerId: null,
-      };
-    case 'AUTH_START':
-      return {
-        ...prevState,
-        isLoading: true,
-      };
-    case 'AUTH_ENDS':
-      return {
-        ...prevState,
-        isLoading: false,
       };
     default:
       return prevState;
