@@ -4,6 +4,7 @@ const userDefaultState = {
   isLoading: false,
   isSignIn: false,
   userToken: null,
+  playerId: null,
 };
 
 function user(prevState = userDefaultState, action = {}) {
@@ -24,18 +25,21 @@ function user(prevState = userDefaultState, action = {}) {
         ...prevState,
         isSignIn: true,
         userToken: action.token,
+        playerId: action.playerId,
       };
     case 'FAILURE_SIGN_IN':
       return {
         ...prevState,
         isSignIn: false,
         userToken: null,
+        playerId: null,
       };
     case 'SUCCESS_SIGN_OUT':
       return {
         ...prevState,
         isSignIn: false,
         userToken: null,
+        playerId: null,
       };
     case 'AUTH_START':
       return {
