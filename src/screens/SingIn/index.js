@@ -10,8 +10,8 @@ export default React.memo(props => {
   const signIn = (password, email) => {
     setIsLoadinng(true);
     apiclient('login', {body: {password, email}})
-      .then(({token}) => {
-        dispatch({type: 'SUCCESS_SIGN_IN', token});
+      .then(({token, playerId}) => {
+        dispatch({type: 'SUCCESS_SIGN_IN', token, playerId});
         setIsLoadinng(false);
       })
       .catch(err => {
@@ -23,6 +23,7 @@ export default React.memo(props => {
           if (err.auth !== undefined && err.auth === false) {
             setError('WRONG_PASSWORD_EMAIL_COMBINATION');
           }
+          setError(err.message);
         }
       });
   };
