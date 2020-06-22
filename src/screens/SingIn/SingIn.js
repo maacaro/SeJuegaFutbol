@@ -13,7 +13,6 @@ export default React.memo(({navigation, isLoading, onSignIn, error}) => {
   const handleSingInOnPress = () => {
     onSignIn(password, email);
   };
-  console.log(error);
   return (
     <>
       {(isLoading && <Text>loading...</Text>) || (

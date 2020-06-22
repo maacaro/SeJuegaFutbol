@@ -1,9 +1,9 @@
 export default user;
 
 const userDefaultState = {
-  isLoading: false,
   isSignIn: false,
   userToken: null,
+  playerId: null,
 };
 
 function user(prevState = userDefaultState, action = {}) {
@@ -24,28 +24,21 @@ function user(prevState = userDefaultState, action = {}) {
         ...prevState,
         isSignIn: true,
         userToken: action.token,
+        playerId: action.playerId,
       };
     case 'FAILURE_SIGN_IN':
       return {
         ...prevState,
         isSignIn: false,
         userToken: null,
+        playerId: null,
       };
     case 'SUCCESS_SIGN_OUT':
       return {
         ...prevState,
         isSignIn: false,
         userToken: null,
-      };
-    case 'AUTH_START':
-      return {
-        ...prevState,
-        isLoading: true,
-      };
-    case 'AUTH_ENDS':
-      return {
-        ...prevState,
-        isLoading: false,
+        playerId: null,
       };
     default:
       return prevState;
